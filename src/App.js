@@ -4,35 +4,20 @@ import Pipe from "./components/Pipe";
 import Ground from "./components/Ground";
 import Coin from "./components/Coin";
 import Player from "./components/Player";
+import usePlayerMovement from "./hooks/usePlayerMovement";
 
 const App = () => {
-  // State to track the player's position on the grid
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 }); // initial position
+  
+ // get position and function 
+ const [playerPosition, handleKeyDown ] = usePlayerMovement(); 
 
   // References to the player element and the container
   const playerRef = useRef(null); // reference to the player in the DOM
   const containerRef = useRef(null); // reference to the container in the DOM
 
-  // 1.Function to handle key press events for player movement, at the moemnt you move +1 from the previous position
 
-  const handleKeyDown = (event) => {
-    switch (event.key) {
-      case "ArrowRight":
-        setPlayerPosition((prev) => ({ ...prev, x: Math.min(prev.x + 1, 39) })); // Move right, limit to column 39
-        break;
-      case "ArrowLeft":
-        setPlayerPosition((prev) => ({ ...prev, x: Math.max(prev.x - 1, 0) })); // Move left, limit to column 0
-        break;
-      case "ArrowUp":
-        setPlayerPosition((prev) => ({ ...prev, y: Math.max(prev.y - 1, 0) })); // Move up, limit to row 0
-        break;
-      case "ArrowDown":
-        setPlayerPosition((prev) => ({ ...prev, y: Math.min(prev.y + 1, 9) })); // Move down, limit to row 9
-        break;
-      default:
-        break;
-    }
-  };
+
+
 
   // 1.Add event listener for keydown events
   useEffect(() => {
