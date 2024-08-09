@@ -3,13 +3,14 @@ import './App.css'
 
 const App = () => {
   // State to track the player's position on the grid
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 })
+  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 }) // initial position 
 
   // References to the player element and the container
-  const playerRef = useRef(null)
-  const containerRef = useRef(null)
+  const playerRef = useRef(null) // reference to the player in the DOM 
+  const containerRef = useRef(null) // reference to the container in the DOM 
 
-  // Function to handle key press events for player movement
+  // Function to handle key press events for player movement, at the moemnt you move +1 from the previous position 
+  
   const handleKeyDown = (event) => {
     switch (event.key) {
       case 'ArrowRight':
@@ -39,13 +40,14 @@ const App = () => {
 
   // Scroll the container to keep the player centered
   useEffect(() => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth
+    if (containerRef.current) { // access to container element 
+      const containerWidth = containerRef.current.offsetWidth // full width of the container 
       const playerElement = playerRef.current
       const playerOffset =
         playerElement.offsetLeft + playerElement.offsetWidth / 2
       const scrollOffset = containerWidth / 2
-      containerRef.current.scrollLeft = playerOffset - scrollOffset
+      containerRef.current.scrollLeft = playerOffset - scrollOffset // this fixes the camera to opsition the character in the center 
+      //playerOffSet and scrollOffset are equal 
     }
   }, [playerPosition])
 
