@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
-
-
-
+import Pipe from './components/Pipe'
 
 const App = () => {
   // State to track the player's position on the grid
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 }) // initial position 
+  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 }) // initial position
 
   // References to the player element and the container
-  const playerRef = useRef(null) // reference to the player in the DOM 
-  const containerRef = useRef(null) // reference to the container in the DOM 
+  const playerRef = useRef(null) // reference to the player in the DOM
+  const containerRef = useRef(null) // reference to the container in the DOM
 
-  // 1.Function to handle key press events for player movement, at the moemnt you move +1 from the previous position 
-  
+  // 1.Function to handle key press events for player movement, at the moemnt you move +1 from the previous position
+
   const handleKeyDown = (event) => {
     switch (event.key) {
       case 'ArrowRight':
@@ -43,15 +41,16 @@ const App = () => {
 
   // 1.Scroll the container to keep the player centered
   useEffect(() => {
-    // useEffect can directly manupilate DOM 
-    if (containerRef.current) { // access to container element 
-      const containerWidth = containerRef.current.offsetWidth // full width of the container 
+    // useEffect can directly manupilate DOM
+    if (containerRef.current) {
+      // access to container element
+      const containerWidth = containerRef.current.offsetWidth // full width of the container
       const playerElement = playerRef.current
       const playerOffset =
         playerElement.offsetLeft + playerElement.offsetWidth / 2
       const scrollOffset = containerWidth / 2
-      containerRef.current.scrollLeft = playerOffset - scrollOffset // this fixes the camera to opsition the character in the center 
-      //playerOffSet and scrollOffset are equal 
+      containerRef.current.scrollLeft = playerOffset - scrollOffset // this fixes the camera to opsition the character in the center
+      //playerOffSet and scrollOffset are equal
     }
   }, [playerPosition])
 
@@ -68,15 +67,11 @@ const App = () => {
         ></div>
         {/* Add ground, pipe, and coin elements */}
         <div
-      className="ground"
-      style={{ gridColumn: "1 / span 40", gridRow: "10 / span 1" }}
-    ></div>
+          className='ground'
+          style={{ gridColumn: '1 / span 40', gridRow: '10 / span 1' }}
+        ></div>
 
-<div
-      className="pipe"
-      style={{ gridColumn: "10 / span 1", gridRow: "8 / span 3" }}
-    ></div>
-    
+        <Pipe />
         <div
           className='coin'
           style={{ gridColumn: '15 / span 1', gridRow: '5 / span 1' }}
