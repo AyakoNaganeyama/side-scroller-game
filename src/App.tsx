@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Pipe from "./components/Pipe";
 import Ground from "./components/Ground";
+import Coin from "./components/Coin";
 
 const App = () => {
   // State to track the player's position on the grid
@@ -70,10 +71,7 @@ const App = () => {
         <Ground />
 
         <Pipe />
-        <div
-          className="coin"
-          style={{ gridColumn: "15 / span 1", gridRow: "5 / span 1" }}
-        ></div>
+        <Coin />
       </div>
     </div>
   );
