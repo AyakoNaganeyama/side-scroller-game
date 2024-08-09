@@ -3,8 +3,15 @@ import { useState } from 'react'
 
 function usePlayerMovement() {
 
+   
+  
+
     // State to track the player's position on the grid
     const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 4 }); // initial position
+
+     
+
+
 
       // 1.Function to handle key press events for player movement, at the moemnt you move +1 from the previous position
     const handleKeyDown = (event) => {
