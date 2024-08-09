@@ -3,6 +3,7 @@ import "./App.css";
 import Pipe from "./components/Pipe";
 import Ground from "./components/Ground";
 import Coin from "./components/Coin";
+import Player from "./components/Player";
 
 const App = () => {
   // State to track the player's position on the grid
@@ -59,19 +60,13 @@ const App = () => {
   return (
     <div className="game-container" ref={containerRef}>
       <div className="background-grid">
-        <div
-          ref={playerRef}
-          className="player"
-          style={{
-            gridColumn: `${playerPosition.x + 1} / span 1`,
-            gridRow: `${playerPosition.y + 1} / span 1`,
-          }}
-        ></div>
+      
         {/* Add ground, pipe, and coin elements */}
         <Ground />
 
         <Pipe />
         <Coin />
+        <Player playerPosition = {playerPosition} playerRef = {playerRef}/>
       </div>
     </div>
   );
