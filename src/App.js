@@ -10,6 +10,7 @@ import useScrollEffect from "./hooks/useScrollEffect";
 const App = () => {
   
  // 1.Add event listener for keydown events
+ //so that Everytime key is pressed, handle keydown is triggred and changes position 
  useEffect(() => {
   window.addEventListener("keydown", handleKeyDown);
   return () => {
@@ -24,7 +25,8 @@ const { playerPosition, handleKeyDown } = usePlayerMovement();
   const playerRef = useRef(null); // reference to the player in the DOM
   const containerRef = useRef(null); // reference to the container in the DOM
 
- useScrollEffect(playerPosition, containerRef, playerRef); //
+  // calling hook useScrollEffect, everytime App.js is rendered this is called and triggers useEffect inside the hook 
+ useScrollEffect(playerPosition, containerRef, playerRef); 
     
 
 
