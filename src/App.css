@@ -8,7 +8,7 @@ html,
 }
 
 /* camera that follows player */
-.game-camera {
+.gameCamera {
 	width: 100%;
 	height: 100vh;
 	overflow-x: scroll;
@@ -16,7 +16,7 @@ html,
 	white-space: nowrap;
 }
 
-.map-grid {
+.mapGrid {
 	height: 100vh;
 	width: 200vw; /* span width so map width always fits screen and does not clip or cut off */
 	background-color: blue; /* Background color */
@@ -24,27 +24,4 @@ html,
 	grid-template-columns: repeat(40, 5vw); /* set grid columns */
 	grid-template-rows: repeat(10, 10vh); /* set grid rows */
 	position: relative;
-}
-
-.player {
-	background-color: black; /* user color for now can change into a sprite later */
-	border: 2px solid white;
-	transition: transform 0.1s;
-}
-
-.ground {
-	background-color: brown; /* color for now can use sprite later */
-	border: 1px solid white; /* for testing grid */
-	grid-column: 1 / span 40; /* ground position on grid */
-}
-
-.pipe {
-	background-color: green; /* color for now can replace with sprite later */
-	border: 1px solid white;
-}
-
-.coin {
-	background-color: yellow; /* color for now can replace later */
-	border: 1px solid white;
-	border-radius: 50%;
 }

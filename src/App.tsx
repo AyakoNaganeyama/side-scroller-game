@@ -25,8 +25,8 @@ export default function App() {
 	useScrollEffect(playerPosition, cameraRef, playerRef)
 
 	return (
-		<div className='game-camera' ref={cameraRef}>
-			<div className='map-grid'>
+		<div className='gameCamera' ref={cameraRef}>
+			<div className='mapGrid'>
 				<Ground />
 
 				<Pipe />
