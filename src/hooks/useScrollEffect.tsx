@@ -1,4 +1,4 @@
-import { useEffect, RefObject } from 'react'
+import { useEffect, useRef, RefObject } from 'react'
 
 interface PlayerPosition {
 	x: number
@@ -7,25 +7,32 @@ interface PlayerPosition {
 
 export function useScrollEffect(
 	playerPosition: PlayerPosition,
-	containerRef: RefObject<HTMLDivElement>,
+	cameraRef: RefObject<HTMLDivElement>,
 	playerRef: RefObject<HTMLDivElement>
 ) {
-	// 1.Scroll the container to keep the player centered
+	const lastCameraPosition = useRef(0)
+	const gridCellWidth = 5 * (window.innerWidth / 100) // use to convert pixel position to grid position
 
 	useEffect(() => {
-		// useEffect can directly manupilate DOM
-		if (containerRef.current && playerRef.current) {
-			// access to container element
-			const containerWidth = containerRef.current.offsetWidth // full width of the container
-			const playerElement: HTMLDivElement | null = playerRef.current
+		if (!cameraRef.current || !playerRef.current) return
 
-			const playerOffset =
-				playerElement.offsetLeft + playerElement.offsetWidth / 2
-			const scrollOffset = containerWidth / 2
-			containerRef.current.scrollLeft = playerOffset - scrollOffset
+		const cameraWidth = cameraRef.current.offsetWidth
 
-			// this fixes the camera to opsition the character in the center
-			//playerOffSet and scrollOffset are equal
+		const playerGridPosition = playerPosition.x * gridCellWidth
+
+		const cameraCenterPoint = cameraWidth / 2
+
+		// move camera only if the player is past the halfway point
+		const newScrollPosition = playerGridPosition - cameraCenterPoint
+
+		// snap the scroll position to the grid cells not pixel point
+		const snappedScrollPosition =
+			Math.floor(newScrollPosition / gridCellWidth) * gridCellWidth
+
+		// only update camera if player is moving forward and past half way point
+		if (snappedScrollPosition > lastCameraPosition.current) {
+			cameraRef.current.scrollLeft = snappedScrollPosition
+			lastCameraPosition.current = snappedScrollPosition
 		}
 	}, [playerPosition])
 }
