@@ -18,6 +18,9 @@ export function useScrollEffect(
 
 		const cameraWidth = cameraRef.current.offsetWidth
 
+		const playerPixelPosition =
+			playerRef.current.offsetLeft + playerRef.current.offsetWidth / 2
+
 		const playerGridPosition = playerPosition.x * gridCellWidth
 
 		const cameraCenterPoint = cameraWidth / 2
@@ -30,7 +33,11 @@ export function useScrollEffect(
 			Math.floor(newScrollPosition / gridCellWidth) * gridCellWidth
 
 		// only update camera if player is moving forward and past half way point
-		if (snappedScrollPosition > lastCameraPosition.current) {
+		if (
+			snappedScrollPosition > lastCameraPosition.current &&
+			// only update update camera if player passed the middle of the screen
+			playerPixelPosition > lastCameraPosition.current // playerPixelPosition makes it easier to check if player is in middle of screen
+		) {
 			cameraRef.current.scrollLeft = snappedScrollPosition
 			lastCameraPosition.current = snappedScrollPosition
 		}
