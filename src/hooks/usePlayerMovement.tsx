@@ -1,34 +1,57 @@
 import { useState } from 'react'
 
-export function usePlayerMovement() {
-	interface PlayerPosition {
-		x: number
-		y: number
-	}
+interface PlayerPosition {
+	x: number
+	y: number
+}
 
-	// State to track the player's position on the grid
+// screen boundary
+const MAX_X = 39 // rights side boundary
+const MIN_X = 0 // left side boundary
+const MAX_Y = 8 // bottom of screen because 0 is top left of screen in grid css
+const MIN_Y = 0 // top of screen
+
+export function usePlayerMovement() {
+	// values are equal to the grid where top left position is 0,0
 	const [playerPosition, setPlayerPosition] = useState<PlayerPosition>({
 		x: 0,
-		y: 4,
-	}) // initial position
+		y: 8,
+	})
 
-	// 1.Function to handle key press events for player movement, at the moemnt you move +1 from the previous position
-	const handleKeyDown = (event: KeyboardEvent) => {
-		switch (event.key) {
-			case 'ArrowRight':
-				setPlayerPosition((prev) => ({ ...prev, x: Math.min(prev.x + 1, 39) })) // Move right, limit to column 39
-				break
-			case 'ArrowLeft':
-				setPlayerPosition((prev) => ({ ...prev, x: Math.max(prev.x - 1, 0) })) // Move left, limit to column 0
-				break
-			case 'ArrowUp':
-				setPlayerPosition((prev) => ({ ...prev, y: Math.max(prev.y - 1, 0) })) // Move up, limit to row 0
-				break
-			case 'ArrowDown':
-				setPlayerPosition((prev) => ({ ...prev, y: Math.min(prev.y + 1, 8) })) // Move down, limit to row 9
-				break
-			default:
-				break
+	// min max methods used to set cap on updates to keep play inside game
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'ArrowRight') {
+			setPlayerPosition((prev) => ({
+				...prev,
+				x: Math.min(prev.x + 1, MAX_X),
+			}))
+			return
+		}
+
+		if (event.key === 'ArrowLeft') {
+			setPlayerPosition((prev) => ({
+				...prev,
+				x: Math.max(prev.x - 1, MIN_X),
+			}))
+			return
+		}
+
+		if (event.key === 'ArrowUp') {
+			setPlayerPosition((prev) => ({
+				...prev,
+				// grid defaults to 0,0 being top left so need to decrement to move user up on screen
+				y: Math.max(prev.y - 1, MIN_Y),
+			}))
+			return
+		}
+
+		if (event.key === 'ArrowDown') {
+			setPlayerPosition((prev) => ({
+				...prev,
+				// grid defaults to 0,0 being top left so need to increment to move user down on screen
+				y: Math.min(prev.y + 1, MAX_Y),
+			}))
+			return
 		}
 	}
 

@@ -8,7 +8,12 @@ import { usePlayerMovement } from './hooks/usePlayerMovement'
 import { useScrollEffect } from './hooks/useScrollEffect'
 
 export default function App() {
-	//so that Everytime key is pressed, handle keydown is triggred and changes position
+	const { playerPosition, handleKeyDown } = usePlayerMovement()
+	// target dom elements
+	const playerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+	const cameraRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+
+	//listen out for keypress
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown)
 		return () => {
@@ -16,20 +21,12 @@ export default function App() {
 		}
 	}, [])
 
-	//import use state and function from use hook
-	const { playerPosition, handleKeyDown } = usePlayerMovement()
-
-	// References to the player element and the container
-	const playerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null) // reference to the player in the DOM
-	const containerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null) // reference to the container in the DOM
-
-	// calling hook useScrollEffect, everytime App.js is rendered this is called and triggers useEffect inside the hook
-	useScrollEffect(playerPosition, containerRef, playerRef)
+	// track and update scroll
+	useScrollEffect(playerPosition, cameraRef, playerRef)
 
 	return (
-		<div className='game-container' ref={containerRef}>
-			<div className='background-grid'>
-				{/* Add ground, pipe, and coin elements */}
+		<div className='game-camera' ref={cameraRef}>
+			<div className='map-grid'>
 				<Ground />
 
 				<Pipe />
