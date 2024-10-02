@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface PlayerPosition {
 	x: number
@@ -63,5 +63,13 @@ export function usePlayerMovement() {
 		}
 	}
 
-	return { playerPosition, handleKeyDown }
+	//add key press listener on mount and remove on cleanup dismount
+	useEffect(() => {
+		window.addEventListener('keydown', handleKeyDown)
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown)
+		}
+	}, [])
+
+	return { playerPosition }
 }
