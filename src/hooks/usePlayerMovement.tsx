@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 interface PlayerPosition {
 	x: number
@@ -18,6 +18,9 @@ export function usePlayerMovement() {
 		y: 8,
 	})
 
+	// used to stop user from back stepping outside of the map
+	const backStepCount = useRef(0)
+
 	// min max methods used to set cap on updates to keep play inside game
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'ArrowRight') {
@@ -25,14 +28,19 @@ export function usePlayerMovement() {
 				...prev,
 				x: Math.min(prev.x + 1, MAX_X),
 			}))
+
+			if (backStepCount.current > 0)
+				backStepCount.current = backStepCount.current - 1
 			return
 		}
 
-		if (event.key === 'ArrowLeft') {
+		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
 			setPlayerPosition((prev) => ({
 				...prev,
 				x: Math.max(prev.x - 1, MIN_X),
 			}))
+
+			backStepCount.current = backStepCount.current + 1
 			return
 		}
 
