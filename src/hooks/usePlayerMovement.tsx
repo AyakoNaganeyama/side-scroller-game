@@ -6,10 +6,12 @@ interface PlayerPosition {
 }
 
 // screen boundary
-const MAX_X = 39 // rights side boundary
+const MAX_X = 39 // right side boundary
 const MIN_X = 0 // left side boundary
 const MAX_Y = 8 // bottom of screen because 0 is top left of screen in grid css
 const MIN_Y = 0 // top of screen
+
+const MOVEMENT_COOL_DOWN = 40 // used to cap input spam, input only updated every 0.050 milliseconds
 
 export function usePlayerMovement() {
 	// values are equal to the grid where top left position is 0,0
@@ -20,17 +22,29 @@ export function usePlayerMovement() {
 
 	// used to stop user from back stepping outside of the map
 	const backStepCount = useRef(0)
+	const lastMoveTime = useRef(0) // used to track when the last input movement was
 
 	// min max methods used to set cap on updates to keep play inside game
 	function handleKeyDown(event: KeyboardEvent) {
+		const currentTime = Date.now()
+
+		// check if moving too fast
+		if (currentTime - lastMoveTime.current < MOVEMENT_COOL_DOWN) {
+			return // return and ignore current input
+		}
+
+		// update last movement timestamp
+		lastMoveTime.current = currentTime
+
 		if (event.key === 'ArrowRight') {
 			setPlayerPosition((prev) => ({
 				...prev,
 				x: Math.min(prev.x + 1, MAX_X),
 			}))
 
-			if (backStepCount.current > 0)
+			if (backStepCount.current > 0) {
 				backStepCount.current = backStepCount.current - 1
+			}
 			return
 		}
 
