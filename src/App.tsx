@@ -8,18 +8,10 @@ import { usePlayerMovement } from './hooks/usePlayerMovement'
 import { useScrollEffect } from './hooks/useScrollEffect'
 
 export default function App() {
-	const { playerPosition, handleKeyDown } = usePlayerMovement()
+	const { playerPosition } = usePlayerMovement()
 	// target dom elements
 	const playerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 	const cameraRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
-
-	//listen out for keypress
-	useEffect(() => {
-		window.addEventListener('keydown', handleKeyDown)
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-		}
-	}, [])
 
 	// track and update scroll
 	useScrollEffect(playerPosition, cameraRef, playerRef)
