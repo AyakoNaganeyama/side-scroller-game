@@ -12,14 +12,16 @@ import { TOTAL_COLUMNS, TOTAL_ROWS, PIPE_LOCATIONS } from './constants'
 import './App.css'
 
 export default function App() {
-	// player position is managed as soon as app launches
+	// player position is managed as soon as app mounts to screen
 	// this includes all arrow key input action listeners
 	const { playerPosition } = usePlayerMovement()
-	// target dom elements
+
+	// target player and camera as soon as app mounts to screen
+	// used for tracking the player movement and to help keep scroll and camera inline with the player
 	const playerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 	const cameraRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
-	// fires as soon as app launches, tracks and update scroll
+	// fires as soon as app mounts to screen, tracks and update scroll
 	useScrollEffect(playerPosition, cameraRef, playerRef)
 
 	return (
