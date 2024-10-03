@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { MAX_X, MIN_X, MAX_Y, MIN_Y } from '../constants' // Adjust the path based on your structure
+
 interface PlayerPosition {
 	x: number
 	y: number
 }
-
-// screen boundary
-const MAX_X = 39 // right side boundary
-const MIN_X = 0 // left side boundary
-const MAX_Y = 8 // bottom of screen because 0 is top left of screen in grid css
-const MIN_Y = 0 // top of screen
 
 const MOVEMENT_COOL_DOWN = 40 // used to cap input spam, input only updated every 0.050 milliseconds
 
