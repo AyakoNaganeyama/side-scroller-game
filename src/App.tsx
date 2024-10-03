@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, RefObject } from 'react'
-import './App.css'
+
 import { Pipe } from './components/Pipe'
 import { Ground } from './components/Ground'
 import { Coin } from './components/Coin'
 import { Player } from './components/Player'
 import { usePlayerMovement } from './hooks/usePlayerMovement'
 import { useScrollEffect } from './hooks/useScrollEffect'
-import { TOTAL_COLUMNS, TOTAL_ROWS } from './constants'
+
+import { TOTAL_COLUMNS, TOTAL_ROWS, PIPE_LOCATIONS } from './constants'
+
+import './App.css'
 
 export default function App() {
 	// player position is managed as soon as app launches
@@ -24,7 +27,9 @@ export default function App() {
 			<div style={styles.mapGrid}>
 				<Ground />
 
-				<Pipe />
+				{PIPE_LOCATIONS.map((pipe) => (
+					<Pipe key={pipe.id} column={pipe.column} />
+				))}
 				<Coin />
 				<Player playerPosition={playerPosition} playerRef={playerRef} />
 			</div>
