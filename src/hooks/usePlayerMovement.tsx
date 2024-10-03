@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { MAX_X, MIN_X, MAX_Y, MIN_Y } from '../constants' // adjust the path based on your structure
+import { MAX_X, MIN_X, MAX_Y, MIN_Y, PIPE_COLLISION } from '../constants' // adjust the path based on your structure
 
 interface PlayerPosition {
 	x: number
@@ -19,11 +19,16 @@ export function usePlayerMovement() {
 		x: 0,
 		y: 8, // start player at bottom left
 	})
+	const [isTouchingPipe, setIsTouchingPipe] = useState<boolean>(false)
 
 	// used to stop user from back stepping outside of the map
 	const backStepCount = useRef(0)
 	const lastMoveTime = useRef(0) // used to track when the last input movement was
 	const jumping = useRef(false) // tract jump state
+
+	function checkIsTouchingPipe(x: number, y: number): boolean | null {
+		return PIPE_COLLISION[`X${x}Y${y}`]
+	}
 
 	function handleKeyDown(event: KeyboardEvent) {
 		const currentTime = Date.now()
@@ -37,9 +42,12 @@ export function usePlayerMovement() {
 		lastMoveTime.current = currentTime
 
 		if (event.key === 'ArrowRight') {
+			console.log('right arrow press')
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
+				x: checkIsTouchingPipe(prev.x + 1, prev.y)
+					? prev.x
+					: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
 			}))
 
 			if (backStepCount.current > 0) {
@@ -51,7 +59,9 @@ export function usePlayerMovement() {
 		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
+				x: checkIsTouchingPipe(prev.x - 1, prev.y)
+					? prev.x
+					: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
 			}))
 
 			backStepCount.current = backStepCount.current + 1
