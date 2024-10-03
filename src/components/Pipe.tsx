@@ -1,11 +1,12 @@
 import '../App.css'
 
-export function Pipe() {
+export function Pipe({ column }: { column: string }) {
 	return (
 		<div
 			style={{
+				gridColumn: `${column} / span 1`,
+				gridRow: '8 / span 2',
 				...style.sprite,
-				...style.position,
 			}}
 		/>
 	)
@@ -15,9 +16,5 @@ const style = {
 	sprite: {
 		backgroundColor: 'green' /* color for now can replace with sprite later */,
 		border: '1px solid white',
-	},
-	position: {
-		gridColumn: '10 / span 1',
-		gridRow: '8 / span 2',
 	},
 }
