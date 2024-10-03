@@ -6,6 +6,7 @@ import { Coin } from './components/Coin'
 import { Player } from './components/Player'
 import { usePlayerMovement } from './hooks/usePlayerMovement'
 import { useScrollEffect } from './hooks/useScrollEffect'
+import { TOTAL_COLUMNS, TOTAL_ROWS } from './constants'
 
 export default function App() {
 	// player position is managed as soon as app launches
@@ -19,8 +20,8 @@ export default function App() {
 	useScrollEffect(playerPosition, cameraRef, playerRef)
 
 	return (
-		<div className='gameCamera' ref={cameraRef}>
-			<div className='mapGrid'>
+		<div style={styles.gameCamera} ref={cameraRef}>
+			<div style={styles.mapGrid}>
 				<Ground />
 
 				<Pipe />
@@ -29,4 +30,23 @@ export default function App() {
 			</div>
 		</div>
 	)
+}
+
+const styles = {
+	gameCamera: {
+		width: '100%',
+		height: '100vh',
+		overflowX: 'scroll',
+		overflowY: 'hidden',
+		whiteSpace: 'nowrap',
+	} as React.CSSProperties,
+	mapGrid: {
+		height: '100vh',
+		width: `${TOTAL_COLUMNS * 5}vw`, // auto fill width to match total columns
+		backgroundColor: 'blue',
+		display: 'grid',
+		gridTemplateColumns: `repeat(${TOTAL_COLUMNS}, 5vw)`,
+		gridTemplateRows: `repeat(${TOTAL_ROWS}, 10vh)`,
+		position: 'relative',
+	} as React.CSSProperties,
 }
