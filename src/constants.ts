@@ -1,16 +1,47 @@
 import { v4 as uuidv4 } from 'uuid'
 
-// global game fixed values
+// global values for game
+
+/**
+ * Total columns in map (the width of the game map)
+ */
 export const TOTAL_COLUMNS = 100 // set the width of the map
-export const TOTAL_ROWS = 10 // set game sky height
-export const GROUND_ROW = 8
 
-export const MAX_X = TOTAL_COLUMNS - 1 // set right side boundary of map so player doesn't pop out of map when reaching the end
-export const MIN_X = 0 // same as above set left side boundary so player doesn't pop out of the game when running back to start
-export const MAX_Y = TOTAL_ROWS - 2 // bottom of screen, because 0 is top left of the screen in grid css
-export const MIN_Y = 0 // top side boundary, prevent player from going past sky box
+/**
+ * Set game sky height (the hight of screen)
+ * If less than 10 there may be clipping and only cover half the screen
+ */
+export const TOTAL_ROWS = 10
 
-export const PIPE_LOCATIONS = [
+/**
+ * Set right side boundary of map so player doesn't pop out of map when reaching the end
+ */
+export const MAX_X = TOTAL_COLUMNS - 1
+
+/**
+ * Same as above set left side boundary so player doesn't pop out of the game when running back to start
+ */
+export const MIN_X = 0
+
+/**
+ * Ground bottom of screen , because 0 is top left of the screen in grid css
+ */
+export const MAX_Y = TOTAL_ROWS - 2
+
+/**
+ * Top side boundary, prevent player from going past sky box
+ */
+export const MIN_Y = 0
+
+/**
+ * Pipe location uses an id to tract mapping during diffing in virtual dom
+ */
+type PipeLocationType = { id: string; column: string }
+
+/**
+ * This pipe locations are used for visual placements of pipe sprites
+ */
+export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '8' },
 	{ id: uuidv4(), column: '15' },
 	{ id: uuidv4(), column: '21' },
@@ -23,6 +54,11 @@ export const PIPE_LOCATIONS = [
 	{ id: uuidv4(), column: '97' },
 ]
 
+/**
+ * Mapped out locations on grid where pipes are located,
+ * by using PIPE_COLLISION[`X${playerPosition.x}Y${playerPosition.y}`],
+ * true will be returned if player x and y has come into contact with a pipe
+ */
 export const PIPE_COLLISION: { [key: string]: boolean } = {
 	X7Y8: true,
 	X7Y7: true,
