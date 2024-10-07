@@ -9,7 +9,7 @@ interface PlayerPosition {
 
 const MOVEMENT_COOL_DOWN = 40 // used to cap input spam, input only updated every 0.050 milliseconds
 const JUMP_HEIGHT = 3
-const FALL_DURATION = 1000 // time in milliseconds to fall back down
+const FALL_DURATION = 900 // time in milliseconds to fall back down
 // add buffer between position update, else it looks player is teleporting when they jump and fall
 const FRAME_TRANSITION_DURATION = FALL_DURATION / JUMP_HEIGHT
 
@@ -41,12 +41,16 @@ export function usePlayerMovement() {
 		lastMoveTime.current = currentTime
 
 		if (event.key === 'ArrowRight') {
-			setPlayerPosition((prev) => ({
-				...prev,
-				x: checkTouchingPipe(prev.x + 1, prev.y)
-					? prev.x
-					: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
-			}))
+			setPlayerPosition((prev) => {
+				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
+
+				return {
+					x: checkTouchingPipe(prev.x + 1, prev.y)
+						? prev.x
+						: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
+					y: prev.y,
+				}
+			})
 
 			if (backStepCount.current > 0) {
 				backStepCount.current = backStepCount.current - 1
@@ -56,12 +60,16 @@ export function usePlayerMovement() {
 		}
 
 		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
-			setPlayerPosition((prev) => ({
-				...prev,
-				x: checkTouchingPipe(prev.x - 1, prev.y)
-					? prev.x
-					: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
-			}))
+			setPlayerPosition((prev) => {
+				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
+
+				return {
+					...prev,
+					x: checkTouchingPipe(prev.x - 1, prev.y)
+						? prev.x
+						: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
+				}
+			})
 
 			backStepCount.current = backStepCount.current + 1
 			return
@@ -98,9 +106,10 @@ export function usePlayerMovement() {
 								: Math.min(originalY - height + i, 8), // fall back to ground level
 						}))
 					}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
-				}
 
-				jumping.current = false // reset jumping flag
+					// check on last loop then set jump state to false
+					if (i === height) jumping.current = false
+				}
 			}, FALL_DURATION)
 		}
 
