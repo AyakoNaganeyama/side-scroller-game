@@ -7,7 +7,7 @@ interface PlayerPosition {
 	y: number
 }
 
-const MOVEMENT_COOL_DOWN = 40 // used to cap input spam, input only updated every 0.050 milliseconds
+const MOVEMENT_COOL_DOWN = 40 // used to cap input spam, input only updated every 0.040 milliseconds
 const JUMP_HEIGHT = 3
 const FALL_DURATION = 900 // time in milliseconds to fall back down
 // add buffer between position update, else it looks player is teleporting when they jump and fall
@@ -87,30 +87,33 @@ export function usePlayerMovement() {
 						...prev,
 						y: Math.max(originalY - i, MIN_Y), // decrement y for jump but no less than min
 					}))
+
+					// timeout background process workaround
+					// only fall at the end of loop
+					if (i === JUMP_HEIGHT) {
+						fall(originalY, JUMP_HEIGHT)
+					}
 				}, i * FRAME_TRANSITION_DURATION) // using frame_duration for jump
 			}
 
-			// after jump, fall back down
-			fall(originalY, JUMP_HEIGHT)
 			return
 		}
 
 		function fall(originalY: number, height: number) {
-			setTimeout(() => {
-				for (let i = 1; i <= height; i++) {
-					setTimeout(() => {
-						setPlayerPosition((prev) => ({
-							...prev,
-							y: checkTouchingPipe(prev.x, originalY - height + i)
-								? prev.y
-								: Math.min(originalY - height + i, 8), // fall back to ground level
-						}))
-					}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
+			for (let i = 1; i <= height; i++) {
+				setTimeout(() => {
+					setPlayerPosition((prev) => ({
+						...prev,
+						y: checkTouchingPipe(prev.x, originalY - height + i)
+							? prev.y
+							: Math.min(originalY - height + i, 8), // fall back to ground level
+					}))
 
 					// check on last loop then set jump state to false
+					// must be in timeout
 					if (i === height) jumping.current = false
-				}
-			}, FALL_DURATION)
+				}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
+			}
 		}
 
 		if (event.key === 'ArrowDown') {
