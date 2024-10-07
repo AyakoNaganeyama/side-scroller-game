@@ -25,7 +25,7 @@ export function usePlayerMovement() {
 	const lastMoveTime = useRef(0) // used to track when the last input movement was
 	const jumping = useRef(false) // tract jump state
 
-	function checkIsTouchingPipe(x: number, y: number): boolean | null {
+	function isTouchingPipe(x: number, y: number): boolean | null {
 		return PIPE_COLLISION[`X${x}Y${y}`]
 	}
 
@@ -43,7 +43,7 @@ export function usePlayerMovement() {
 		if (event.key === 'ArrowRight') {
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: checkIsTouchingPipe(prev.x + 1, prev.y)
+				x: isTouchingPipe(prev.x + 1, prev.y)
 					? prev.x
 					: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
 			}))
@@ -57,7 +57,7 @@ export function usePlayerMovement() {
 		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: checkIsTouchingPipe(prev.x - 1, prev.y)
+				x: isTouchingPipe(prev.x - 1, prev.y)
 					? prev.x
 					: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
 			}))
