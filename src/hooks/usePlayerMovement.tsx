@@ -112,7 +112,7 @@ export function usePlayerMovement() {
 					// check on last loop then set jump state to false
 					// must be in timeout
 					if (i === height) jumping.current = false
-				}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
+				}, (i * FRAME_TRANSITION_DURATION) / 2) // using frame_duration for fall
 			}
 		}
 
