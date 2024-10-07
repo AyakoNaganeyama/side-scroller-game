@@ -19,7 +19,6 @@ export function usePlayerMovement() {
 		x: 0,
 		y: 8, // start player at bottom left
 	})
-	const [isTouchingPipe, setIsTouchingPipe] = useState<boolean>(false)
 
 	// used to stop user from back stepping outside of the map
 	const backStepCount = useRef(0)
