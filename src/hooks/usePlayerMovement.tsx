@@ -87,18 +87,19 @@ export function usePlayerMovement() {
 			return
 		}
 
-		function fall(originalY: number, hight: number) {
+		function fall(originalY: number, height: number) {
 			setTimeout(() => {
-				for (let i = 1; i <= hight; i++) {
+				for (let i = 1; i <= height; i++) {
 					setTimeout(() => {
 						setPlayerPosition((prev) => ({
 							...prev,
-							y: checkTouchingPipe(prev.x, originalY - hight + i)
+							y: checkTouchingPipe(prev.x, originalY - height + i)
 								? prev.y
-								: Math.min(originalY - hight + i, 8), // fall back to ground level
+								: Math.min(originalY - height + i, 8), // fall back to ground level
 						}))
 					}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
 				}
+
 				jumping.current = false // reset jumping flag
 			}, FALL_DURATION)
 		}
