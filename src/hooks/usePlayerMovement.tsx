@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { MAX_X, MIN_X, MAX_Y, MIN_Y, PIPE_COLLISION } from '../constants' // adjust the path based on your structure
+import {
+	MAX_X,
+	MIN_X,
+	MAX_Y,
+	MIN_Y,
+	PIPE_COLLISION,
+	GROUND_ROW,
+} from '../constants' // adjust the path based on your structure
 
 interface PlayerPosition {
 	x: number
@@ -17,7 +24,7 @@ export function usePlayerMovement() {
 	// values are equal to the grid where top left position is 0,0
 	const [playerPosition, setPlayerPosition] = useState<PlayerPosition>({
 		x: 0,
-		y: 8, // start player at bottom left
+		y: GROUND_ROW, // start player at bottom left
 	})
 
 	// used to stop user from back stepping outside of the map
@@ -25,7 +32,7 @@ export function usePlayerMovement() {
 	const lastMoveTime = useRef(0) // used to track when the last input movement was
 	const jumping = useRef(false) // tract jump state
 
-	function isTouchingPipe(x: number, y: number): boolean | null {
+	function checkTouchingPipe(x: number, y: number): boolean | null {
 		return PIPE_COLLISION[`X${x}Y${y}`]
 	}
 
@@ -43,7 +50,7 @@ export function usePlayerMovement() {
 		if (event.key === 'ArrowRight') {
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: isTouchingPipe(prev.x + 1, prev.y)
+				x: checkTouchingPipe(prev.x + 1, prev.y)
 					? prev.x
 					: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
 			}))
@@ -51,13 +58,14 @@ export function usePlayerMovement() {
 			if (backStepCount.current > 0) {
 				backStepCount.current = backStepCount.current - 1
 			}
+
 			return
 		}
 
 		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
 			setPlayerPosition((prev) => ({
 				...prev,
-				x: isTouchingPipe(prev.x - 1, prev.y)
+				x: checkTouchingPipe(prev.x - 1, prev.y)
 					? prev.x
 					: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
 			}))
@@ -82,18 +90,24 @@ export function usePlayerMovement() {
 			}
 
 			// after jump, fall back down
+			fall(originalY, JUMP_HEIGHT)
+			return
+		}
+
+		function fall(originalY: number, hight: number) {
 			setTimeout(() => {
-				for (let i = 1; i <= JUMP_HEIGHT; i++) {
+				for (let i = 1; i <= hight; i++) {
 					setTimeout(() => {
 						setPlayerPosition((prev) => ({
 							...prev,
-							y: Math.min(originalY - JUMP_HEIGHT + i, 8), // fall back to ground level
+							y: checkTouchingPipe(prev.x, originalY - hight + i)
+								? prev.y
+								: Math.min(originalY - hight + i, 8), // fall back to ground level
 						}))
 					}, i * FRAME_TRANSITION_DURATION) // using frame_duration for fall
 				}
 				jumping.current = false // reset jumping flag
 			}, FALL_DURATION)
-			return
 		}
 
 		if (event.key === 'ArrowDown') {
