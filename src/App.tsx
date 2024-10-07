@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, RefObject } from 'react'
+import React, { useRef, RefObject } from 'react'
 
 import { Pipe } from './components/Pipe'
 import { Ground } from './components/Ground'
