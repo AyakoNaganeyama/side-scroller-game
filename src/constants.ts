@@ -24,7 +24,7 @@ export const MAX_X = TOTAL_COLUMNS - 1
 export const MIN_X = 0
 
 /**
- * Ground bottom of screen , because 0 is top left of the screen in grid css
+ * Ground bottom of screen is 8, because 0 is top left of the screen in grid css
  */
 export const MAX_Y = TOTAL_ROWS - 2
 
