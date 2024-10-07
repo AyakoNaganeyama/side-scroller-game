@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import {
-	MAX_X,
-	MIN_X,
-	MAX_Y,
-	MIN_Y,
-	PIPE_COLLISION,
-	GROUND_ROW,
-} from '../constants' // adjust the path based on your structure
+import { MAX_X, MIN_X, MAX_Y, MIN_Y, PIPE_COLLISION } from '../constants' // adjust the path based on your structure
 
 interface PlayerPosition {
 	x: number
@@ -24,7 +17,7 @@ export function usePlayerMovement() {
 	// values are equal to the grid where top left position is 0,0
 	const [playerPosition, setPlayerPosition] = useState<PlayerPosition>({
 		x: 0,
-		y: GROUND_ROW, // start player at bottom left
+		y: MAX_Y, // start player at bottom left
 	})
 
 	// used to stop user from back stepping outside of the map
