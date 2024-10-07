@@ -42,7 +42,6 @@ export function usePlayerMovement() {
 		lastMoveTime.current = currentTime
 
 		if (event.key === 'ArrowRight') {
-			console.log('right arrow press')
 			setPlayerPosition((prev) => ({
 				...prev,
 				x: checkIsTouchingPipe(prev.x + 1, prev.y)
