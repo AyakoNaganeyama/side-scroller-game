@@ -40,7 +40,12 @@ export default function App() {
 				))}
 
 				{COIN_LOCATIONS.map(({ id, column, row }) => (
-					<Coin key={id} column={column} row={row} />
+					<Coin
+						key={id}
+						column={column}
+						row={row}
+						playerPosition={playerPosition}
+					/>
 				))}
 				<Player playerPosition={playerPosition} playerRef={playerRef} />
 			</div>
