@@ -37,9 +37,10 @@ export const MIN_Y = 0
  * Pipe location uses an id to tract mapping during diffing in virtual dom
  */
 type PipeLocationType = { id: string; column: string }
+type CoinLocationType = { id: string; column: string; row: string }
 
 /**
- * This pipe locations are used for visual placements of pipe sprites
+ * This pipe locations are used for visual placements of pipe sprites no used for collision
  */
 export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '8' },
@@ -52,6 +53,13 @@ export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '75' },
 	{ id: uuidv4(), column: '82' },
 	{ id: uuidv4(), column: '97' },
+]
+
+/**
+ * Coin locations are used for visual placements of coin sprites no used for collision
+ */
+export const COIN_LOCATIONS: CoinLocationType[] = [
+	{ id: uuidv4(), column: '15', row: '5' },
 ]
 
 /**
