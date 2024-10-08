@@ -59,7 +59,7 @@ export const PIPE_LOCATIONS: PipeLocationType[] = [
  * Coin locations are used for visual placements of coin sprites no used for collision
  */
 export const COIN_LOCATIONS: CoinLocationType[] = [
-	{ id: uuidv4(), column: '15', row: '5' },
+	{ id: uuidv4(), column: '22', row: '6' },
 ]
 
 /**
