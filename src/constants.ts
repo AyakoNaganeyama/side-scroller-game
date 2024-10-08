@@ -63,6 +63,12 @@ export const COIN_LOCATIONS: CoinLocationType[] = [
 ]
 
 /**
+ * X is is column and Y is row
+ */
+export const COIN_COLLISION: { [key: string]: boolean } = {
+	X21Y5: true,
+}
+/**
  * Mapped out locations on grid where pipes are located,
  * by using PIPE_COLLISION[`X${playerPosition.x}Y${playerPosition.y}`],
  * true will be returned if player x and y has come into contact with a pipe
