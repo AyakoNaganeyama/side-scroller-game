@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { MAX_X, MIN_X, MAX_Y, MIN_Y, PIPE_COLLISION } from '../constants' // adjust the path based on your structure
 
-interface PlayerPosition {
+export interface PlayerPosition {
 	x: number
 	y: number
 }
