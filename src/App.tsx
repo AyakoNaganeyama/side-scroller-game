@@ -10,6 +10,7 @@ import { useScrollEffect } from './hooks/useScrollEffect'
 
 import {
 	COIN_LOCATIONS,
+	GROUND_LOCATIONS,
 	PIPE_LOCATIONS,
 	TOTAL_COLUMNS,
 	TOTAL_ROWS,
@@ -33,8 +34,9 @@ export default function App() {
 	return (
 		<div style={styles.gameCamera} ref={cameraRef}>
 			<div style={styles.mapGrid}>
-				<Ground />
-
+				{GROUND_LOCATIONS.map(({ id, column }) => (
+					<Ground key={id} column={column} />
+				))}
 				{PIPE_LOCATIONS.map(({ id, column }) => (
 					<Pipe key={id} column={column} />
 				))}
