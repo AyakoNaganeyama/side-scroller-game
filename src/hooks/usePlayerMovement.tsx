@@ -103,20 +103,19 @@ export function usePlayerMovement() {
 		// only allow if use is not already jumping
 		if (event.key === 'ArrowUp' && !jumping.current) {
 			jumping.current = true
-			const originalY = playerPosition.y // store the original y position
 
 			// jump up
 			for (let i = 1; i <= JUMP_HEIGHT; i++) {
 				setTimeout(() => {
 					setPlayerPosition((prev) => ({
 						...prev,
-						y: Math.max(originalY - i, MIN_Y), // decrement y for jump but no less than min
+						y: Math.max(MAX_Y - i, MIN_Y), // decrement y for jump but no less than min
 					}))
 
 					// timeout background process workaround
 					// only fall at the end of loop
 					if (i === JUMP_HEIGHT) {
-						fall(originalY, JUMP_HEIGHT)
+						fall(MAX_Y, JUMP_HEIGHT)
 					}
 				}, i * FRAME_TRANSITION_DURATION) // using frame_duration for jump
 			}
