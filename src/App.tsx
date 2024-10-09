@@ -1,4 +1,4 @@
-import React, { useRef, RefObject, useMemo, useEffect } from 'react'
+import React, { useRef, RefObject, useMemo } from 'react'
 
 import { Coin } from './components/Coin'
 import { Ground } from './components/Ground'
