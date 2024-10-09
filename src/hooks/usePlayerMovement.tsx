@@ -9,6 +9,9 @@ import {
 	PIPE_COLLISION,
 } from '../constants' // adjust the path based on your structure
 
+/**
+ * X is is column and Y is row
+ */
 export interface PlayerPosition {
 	x: number
 	y: number
@@ -124,15 +127,25 @@ export function usePlayerMovement() {
 		function fall(originalY: number, height: number) {
 			for (let i = 1; i <= height; i++) {
 				setTimeout(() => {
-					setPlayerPosition((prev) => ({
-						...prev,
-						y: checkTouchingPipe(prev.x, originalY - height + i)
-							? prev.y
-							: Math.min(
-									originalY - height + i,
-									originalY == MAX_Y ? MAX_Y : 10 // fall back to ground level else fall to hole level
-							  ),
-					}))
+					setPlayerPosition((prev) => {
+						const newY = originalY - height + i
+
+						// check if new position will land above hole in ground if so then fall
+						if (GROUND_HOLD_LOCATION[prev.x] && originalY - height + i == 8) {
+							fall(9, 1)
+							return { x: prev.x, y: newY }
+						}
+
+						return {
+							...prev,
+							y: checkTouchingPipe(prev.x, originalY - height + i)
+								? prev.y
+								: Math.min(
+										originalY - height + i,
+										originalY == MAX_Y ? MAX_Y : 9 // fall back to ground level else fall to hole level
+								  ),
+						}
+					})
 
 					// check on last loop then set jump state to false
 					// must be in timeout
