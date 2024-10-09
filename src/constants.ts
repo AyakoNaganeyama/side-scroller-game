@@ -40,6 +40,20 @@ type PipeLocationType = { id: string; column: string }
 type CoinLocationType = { id: string; column: string; row: string }
 
 /**
+ * Coin locations are used for visual placements of coin sprites no used for collision
+ */
+export const COIN_LOCATIONS: CoinLocationType[] = [
+	{ id: uuidv4(), column: '22', row: '6' },
+]
+
+/**
+ * X is is column and Y is row
+ */
+export const COIN_COLLISION: { [key: string]: boolean } = {
+	X21Y5: true,
+}
+
+/**
  * This pipe locations are used for visual placements of pipe sprites no used for collision
  */
 export const PIPE_LOCATIONS: PipeLocationType[] = [
@@ -55,19 +69,6 @@ export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '97' },
 ]
 
-/**
- * Coin locations are used for visual placements of coin sprites no used for collision
- */
-export const COIN_LOCATIONS: CoinLocationType[] = [
-	{ id: uuidv4(), column: '22', row: '6' },
-]
-
-/**
- * X is is column and Y is row
- */
-export const COIN_COLLISION: { [key: string]: boolean } = {
-	X21Y5: true,
-}
 /**
  * Mapped out locations on grid where pipes are located,
  * by using PIPE_COLLISION[`X${playerPosition.x}Y${playerPosition.y}`],
