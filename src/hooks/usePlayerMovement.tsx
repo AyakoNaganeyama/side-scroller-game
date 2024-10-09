@@ -76,13 +76,20 @@ export function usePlayerMovement() {
 
 		if (event.key === 'ArrowLeft' && backStepCount.current < 10) {
 			setPlayerPosition((prev) => {
+				const oldX = prev.x
+				const newX = oldX - 1
+
+				// check if new position will land above hole in ground if so then fall
+				if (GROUND_HOLD_LOCATION[newX] && prev.y == 8) {
+					fall(9, 1)
+					return { x: newX, y: prev.y }
+				}
+
 				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
 
 				return {
 					...prev,
-					x: checkTouchingPipe(prev.x - 1, prev.y)
-						? prev.x
-						: Math.max(prev.x - 1, MIN_X), // decrement position, but no less than MIN_X
+					x: checkTouchingPipe(newX, prev.y) ? oldX : Math.max(newX, MIN_X), // decrement position, but no less than MIN_X
 				}
 			})
 
