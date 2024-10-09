@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { MAX_X, MIN_X, MAX_Y, MIN_Y, PIPE_COLLISION } from '../constants' // adjust the path based on your structure
+import {
+	GROUND_HOLD_LOCATION,
+	MAX_X,
+	MAX_Y,
+	MIN_X,
+	MIN_Y,
+	PIPE_COLLISION,
+} from '../constants' // adjust the path based on your structure
 
 export interface PlayerPosition {
 	x: number
@@ -42,12 +49,20 @@ export function usePlayerMovement() {
 
 		if (event.key === 'ArrowRight') {
 			setPlayerPosition((prev) => {
+				const oldX = prev.x
+				const newX = oldX + 1
+
+				// check if new position will land above hole in ground if so then fall
+				if (GROUND_HOLD_LOCATION[newX] && prev.y == 8) {
+					fall(9, 1)
+					return { x: newX, y: prev.y }
+				}
+
 				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
 
 				return {
-					x: checkTouchingPipe(prev.x + 1, prev.y)
-						? prev.x
-						: Math.min(prev.x + 1, MAX_X), // increment position, but don't exceed MAX_X
+					//  increment position, but don't exceed MAX_X
+					x: checkTouchingPipe(newX, prev.y) ? oldX : Math.min(newX, MAX_X),
 					y: prev.y,
 				}
 			})
@@ -106,7 +121,10 @@ export function usePlayerMovement() {
 						...prev,
 						y: checkTouchingPipe(prev.x, originalY - height + i)
 							? prev.y
-							: Math.min(originalY - height + i, 8), // fall back to ground level
+							: Math.min(
+									originalY - height + i,
+									originalY == MAX_Y ? MAX_Y : 10 // fall back to ground level else fall to hole level
+							  ),
 					}))
 
 					// check on last loop then set jump state to false
