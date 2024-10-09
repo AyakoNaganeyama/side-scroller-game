@@ -11,6 +11,11 @@ type CoinType = {
 export function Coin({ column, row, playerPosition }: CoinType) {
 	const [isVisible, setIsVisible] = useState<boolean>(true)
 
+	useEffect(() => {
+		if (COIN_COLLISION[`X${playerPosition.x}Y${playerPosition.y}`])
+			setIsVisible(false)
+	}, [playerPosition])
+
 	const style = {
 		sprite: {
 			backgroundColor: 'yellow' /* color for now can replace later */,
@@ -19,11 +24,6 @@ export function Coin({ column, row, playerPosition }: CoinType) {
 		},
 		position: { gridColumn: `${column} / span 1`, gridRow: `${row} / span 1` },
 	}
-
-	useEffect(() => {
-		if (COIN_COLLISION[`X${playerPosition.x}Y${playerPosition.y}`])
-			setIsVisible(false)
-	}, [playerPosition])
 
 	return isVisible ? (
 		<div
