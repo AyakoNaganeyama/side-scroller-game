@@ -60,8 +60,30 @@ export const COIN_LOCATIONS: CoinLocationType[] = [
 export const GROUND_LOCATIONS: GroundLocationType[] = [
 	{ id: uuidv4(), column: '1 /  29' },
 	{ id: uuidv4(), column: '35 / 56' },
-	{ id: uuidv4(), column: '62 /  99' },
+	{ id: uuidv4(), column: '62 /  86' },
+	{ id: uuidv4(), column: '92 /  101' },
 ]
+
+export const GROUND_HOLD_LOCATION: { [Key: string]: boolean } = {
+	28: true,
+	29: true,
+	30: true,
+	31: true,
+	32: true,
+	33: true,
+	55: true,
+	56: true,
+	57: true,
+	58: true,
+	59: true,
+	60: true,
+	85: true,
+	86: true,
+	87: true,
+	88: true,
+	89: true,
+	90: true,
+}
 
 /**
  * This pipe locations are used for visual placements of pipe sprites no used for collision
@@ -76,7 +98,6 @@ export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '64' },
 	{ id: uuidv4(), column: '75' },
 	{ id: uuidv4(), column: '82' },
-	{ id: uuidv4(), column: '97' },
 ]
 
 /**
@@ -103,6 +124,4 @@ export const PIPE_COLLISION: { [key: string]: boolean } = {
 	X74Y7: true,
 	X81Y8: true,
 	X81Y7: true,
-	X96Y8: true,
-	X96Y7: true,
 }
