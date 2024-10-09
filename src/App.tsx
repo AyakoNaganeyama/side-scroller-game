@@ -1,4 +1,4 @@
-import React, { useRef, RefObject } from 'react'
+import React, { useRef, RefObject, useMemo, useEffect } from 'react'
 
 import { Coin } from './components/Coin'
 import { Ground } from './components/Ground'
@@ -19,28 +19,33 @@ import {
 import './App.css'
 
 export default function App() {
-	// player position is managed as soon as app mounts to screen
-	// this includes all arrow key input action listeners
-	const { playerPosition } = usePlayerMovement()
-
 	// target player and camera as soon as app mounts to screen
 	// used for tracking the player movement and to help keep scroll and camera inline with the player
 	const cameraRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 	const playerRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
+	// player position is managed as soon as app mounts to screen
+	// this includes all arrow key input action listeners
+	const { playerPosition } = usePlayerMovement()
+
 	// fires as soon as app mounts to screen, tracks and update scroll
 	useScrollEffect(playerPosition, cameraRef, playerRef)
+
+	const grounds = useMemo(() => {
+		return GROUND_LOCATIONS.map(({ id, column }) => (
+			<Ground key={id} column={column} />
+		))
+	}, [])
+
+	const pipes = useMemo(() => {
+		return PIPE_LOCATIONS.map(({ id, column }) => (
+			<Pipe key={id} column={column} />
+		))
+	}, [])
 
 	return (
 		<div style={styles.gameCamera} ref={cameraRef}>
 			<div style={styles.mapGrid}>
-				{GROUND_LOCATIONS.map(({ id, column }) => (
-					<Ground key={id} column={column} />
-				))}
-				{PIPE_LOCATIONS.map(({ id, column }) => (
-					<Pipe key={id} column={column} />
-				))}
-
 				{COIN_LOCATIONS.map(({ id, column, row }) => (
 					<Coin
 						key={id}
@@ -49,6 +54,9 @@ export default function App() {
 						playerPosition={playerPosition}
 					/>
 				))}
+				{pipes}
+				{grounds}
+
 				<Player playerPosition={playerPosition} playerRef={playerRef} />
 			</div>
 		</div>
