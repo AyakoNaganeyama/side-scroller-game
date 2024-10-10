@@ -68,21 +68,23 @@ export default function App() {
 	)
 }
 
+const stretchMultiPlier = 5
+
 const styles = {
 	gameCamera: {
 		width: '100%',
 		height: '100vh',
-		overflowX: 'scroll',
-		overflowY: 'hidden',
-		whiteSpace: 'nowrap',
+		overflowX: 'scroll', // allows us to scroll left and right is there is any x overflow
+		overflowY: 'hidden', // hide and disable up and down scroll
+		whiteSpace: 'nowrap', // using grid so prevent any wrapping that may happen
 	} as React.CSSProperties,
 	mapGrid: {
 		height: '100vh',
-		width: `${TOTAL_COLUMNS * 5}vw`, // auto fill width to match total columns
+		width: `${TOTAL_COLUMNS * stretchMultiPlier}vw`, // auto fill width to match total columns
 		backgroundColor: 'blue',
 		display: 'grid',
-		gridTemplateColumns: `repeat(${TOTAL_COLUMNS}, 5vw)`,
-		gridTemplateRows: `repeat(${TOTAL_ROWS}, 10vh)`,
+		gridTemplateColumns: `repeat(${TOTAL_COLUMNS}, ${stretchMultiPlier}vw)`,
+		gridTemplateRows: `repeat(${TOTAL_ROWS}, 1fr)`,
 		position: 'relative',
 	} as React.CSSProperties,
 }
