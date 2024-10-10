@@ -26,7 +26,7 @@ export default function App() {
 
 	// player position is managed as soon as app mounts to screen
 	// this includes all arrow key input action listeners
-	const { playerPosition } = usePlayerMovement()
+	const { playerPosition, playerDirection } = usePlayerMovement()
 
 	// fires as soon as app mounts to screen, tracks and update scroll
 	useScrollEffect(playerPosition, cameraRef, playerRef)
@@ -62,7 +62,11 @@ export default function App() {
 				{pipes}
 				{grounds}
 
-				<Player playerPosition={playerPosition} playerRef={playerRef} />
+				<Player
+					playerPosition={playerPosition}
+					playerRef={playerRef}
+					playerDirection={playerDirection}
+				/>
 			</div>
 		</div>
 	)
