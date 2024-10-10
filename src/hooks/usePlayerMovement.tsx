@@ -55,6 +55,11 @@ export function usePlayerMovement() {
 				const oldX = prev.x
 				const newX = oldX + 1
 
+				// prevent users from moving once in hole
+				if (GROUND_HOLD_LOCATION[oldX] && prev.y == 9) {
+					return { x: oldX, y: prev.y }
+				}
+
 				// check if new position will land above hole in ground if so then fall
 				if (GROUND_HOLD_LOCATION[newX] && prev.y == 8) {
 					fall(9, 1)
@@ -81,6 +86,11 @@ export function usePlayerMovement() {
 			setPlayerPosition((prev) => {
 				const oldX = prev.x
 				const newX = oldX - 1
+
+				// prevent users from moving once in hole
+				if (GROUND_HOLD_LOCATION[oldX] && prev.y == 9) {
+					return { x: oldX, y: prev.y }
+				}
 
 				// check if new position will land above hole in ground if so then fall
 				if (GROUND_HOLD_LOCATION[newX] && prev.y == 8) {
@@ -128,6 +138,11 @@ export function usePlayerMovement() {
 				setTimeout(() => {
 					setPlayerPosition((prev) => {
 						const newY = originalY - height + i
+
+						// prevent users from jumping once in hole
+						if (GROUND_HOLD_LOCATION[prev.x] && prev.y == 9) {
+							return { x: prev.x, y: prev.y }
+						}
 
 						// check if new position will land above hole in ground if so then fall
 						if (GROUND_HOLD_LOCATION[prev.x] && originalY - height + i == 8) {
