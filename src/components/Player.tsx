@@ -1,21 +1,23 @@
 import { useEffect } from 'react'
 import IdleSprite from '../images/character/pink-man/idle.png'
-import RunningSprite from '../images/character/pink-man/run.png'
+import { LEFT } from '../constants'
 
-export function Player({ playerPosition, playerRef }: any) {
+export function Player({ playerPosition, playerRef, playerDirection }: any) {
 	// Add the keyframes into the DOM
 	useEffect(() => {
 		const styleSheet = document.styleSheets[0]
-		const idleKeyframes = `@keyframes idle { to { background-position: -320px; } }`
-		const runKeyframes = `@keyframes run { to { background-position: 384px; } }`
-
+		const idleKeyframes = `@keyframes idle { to { background-position: 31%; } }`
 		styleSheet.insertRule(idleKeyframes, styleSheet.cssRules.length)
-		styleSheet.insertRule(runKeyframes, styleSheet.cssRules.length)
 	}, [])
 
-	const animateSprite: { [key: string]: string } = {
-		idle: 'idle 1s steps(2) infinite', // 11 frames for idle
-		running: 'run 1s steps(12) infinite', // 12 frames for running
+	const style = {
+		sprite: {
+			backgroundImage: `url(${IdleSprite})`,
+			backgroundPosition: 'center',
+			backgroundRepeat: 'no-repeat',
+			backgroundSize: 'cover',
+			transform: playerDirection == LEFT ? 'scaleX(-1)' : 'scaleX(1)', // flip sprite left and right
+		},
 	}
 
 	return (
@@ -26,19 +28,8 @@ export function Player({ playerPosition, playerRef }: any) {
 				gridColumn: `${playerPosition.x + 1} / span 1`,
 				gridRow: `${playerPosition.y + 1} / span 1`,
 				...style.sprite,
-				animation: animateSprite.idle,
+				animation: 'idle 1s steps(2) infinite',
 			}}
 		/>
 	)
-}
-
-const style = {
-	sprite: {
-		backgroundImage: `url(${IdleSprite})`,
-		backgroundPosition: 'center',
-		backgroundSize: 'cover',
-		backgroundRepeat: 'no-repeat',
-		border: '2px solid white',
-		transition: 'transform 0.4s',
-	},
 }
