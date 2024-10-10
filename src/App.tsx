@@ -1,4 +1,4 @@
-import React, { useRef, RefObject, useMemo } from 'react'
+import React, { useRef, RefObject, useMemo, useEffect } from 'react'
 
 import { Coin } from './components/Coin'
 import { Ground } from './components/Ground'
@@ -42,6 +42,11 @@ export default function App() {
 			<Pipe key={id} column={column} />
 		))
 	}, [])
+
+	useEffect(() => {
+		// if player falls in hole reset game
+		if (playerPosition.y == 9) window.location.reload()
+	}, [playerPosition.y])
 
 	return (
 		<div style={styles.gameCamera} ref={cameraRef}>
