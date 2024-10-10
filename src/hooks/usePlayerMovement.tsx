@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 
 import {
 	GROUND_HOLD_LOCATION,
+	IDLE,
+	LEFT,
 	MAX_X,
 	MAX_Y,
 	MIN_X,
 	MIN_Y,
 	PIPE_COLLISION,
+	RIGHT,
 } from '../constants' // adjust the path based on your structure
 
 /**
@@ -23,12 +26,16 @@ const FALL_DURATION = 900 // time in milliseconds to fall back down
 // add buffer between position update, else it looks player is teleporting when they jump and fall
 const FRAME_TRANSITION_DURATION = FALL_DURATION / JUMP_HEIGHT
 
+type PlayerDirection = typeof IDLE | typeof LEFT | typeof RIGHT
+
 export function usePlayerMovement() {
 	// values are equal to the grid where top left position is 0,0
 	const [playerPosition, setPlayerPosition] = useState<PlayerPosition>({
 		x: 0,
 		y: MAX_Y, // start player at bottom left
 	})
+
+	const [playerDirection, setPlayerDirection] = useState<PlayerDirection>(IDLE)
 
 	// used to stop user from back stepping outside of the map
 	const backStepCount = useRef(0)
@@ -68,6 +75,7 @@ export function usePlayerMovement() {
 
 				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
 
+				setPlayerDirection(RIGHT)
 				return {
 					//  increment position, but don't exceed MAX_X
 					x: checkTouchingPipe(newX, prev.y) ? oldX : Math.min(newX, MAX_X),
@@ -99,6 +107,7 @@ export function usePlayerMovement() {
 				}
 
 				if (prev.y == 6 && !jumping.current) fall(MAX_Y, 2)
+				setPlayerDirection(LEFT)
 
 				return {
 					...prev,
@@ -185,5 +194,5 @@ export function usePlayerMovement() {
 		}
 	}, [])
 
-	return { playerPosition }
+	return { playerDirection, playerPosition }
 }
