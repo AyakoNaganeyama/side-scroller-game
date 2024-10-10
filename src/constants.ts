@@ -37,8 +37,8 @@ export const MIN_Y = 0
  * actions used for sprite and animation
  */
 export const IDLE = 'IDLE'
-export const RUN_LEFT = 'RUN_LEFT'
-export const RUN_RIGHT = 'RUN_RIGHT'
+export const LEFT = 'LEFT'
+export const RIGHT = 'RIGHT'
 
 /**
  * Pipe location uses an id to tract mapping during diffing in virtual dom
