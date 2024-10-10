@@ -6,8 +6,8 @@ export function Player({ playerPosition, playerRef }: any) {
 	// Add the keyframes into the DOM
 	useEffect(() => {
 		const styleSheet = document.styleSheets[0]
-		const idleKeyframes = `@keyframes idle { to { background-position: -352px; } }`
-		const runKeyframes = `@keyframes run { to { background-position: -384px; } }`
+		const idleKeyframes = `@keyframes idle { to { background-position: -320px; } }`
+		const runKeyframes = `@keyframes run { to { background-position: 384px; } }`
 
 		styleSheet.insertRule(idleKeyframes, styleSheet.cssRules.length)
 		styleSheet.insertRule(runKeyframes, styleSheet.cssRules.length)
@@ -26,6 +26,7 @@ export function Player({ playerPosition, playerRef }: any) {
 				gridColumn: `${playerPosition.x + 1} / span 1`,
 				gridRow: `${playerPosition.y + 1} / span 1`,
 				...style.sprite,
+				animation: animateSprite.idle,
 			}}
 		/>
 	)
