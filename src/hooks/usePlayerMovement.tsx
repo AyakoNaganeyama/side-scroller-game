@@ -137,12 +137,12 @@ export function usePlayerMovement() {
 			for (let i = 1; i <= height; i++) {
 				setTimeout(() => {
 					setPlayerPosition((prev) => {
-						const newY = originalY - height + i
-
 						// prevent users from jumping once in hole
 						if (GROUND_HOLD_LOCATION[prev.x] && prev.y == 9) {
 							return { x: prev.x, y: prev.y }
 						}
+
+						const newY = originalY - height + i
 
 						// check if new position will land above hole in ground if so then fall
 						if (GROUND_HOLD_LOCATION[prev.x] && originalY - height + i == 8) {
