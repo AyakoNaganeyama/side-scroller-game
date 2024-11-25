@@ -8,7 +8,10 @@ import { Player } from './components/Player'
 import { usePlayerMovement } from './hooks/usePlayerMovement'
 import { useScrollEffect } from './hooks/useScrollEffect'
 
+import Castle from './images/castle/Castle.png'
+
 import {
+	CLOUD_LOCATIONS,
 	COIN_LOCATIONS,
 	GROUND_LOCATIONS,
 	PIPE_LOCATIONS,
@@ -18,6 +21,7 @@ import {
 } from './constants'
 
 import './App.css'
+import { Cloud } from './components/Cloud'
 
 export default function App() {
 	const [gameOver, setGameOver] = useState<boolean>(false)
@@ -76,6 +80,10 @@ export default function App() {
 	) : (
 		<div style={styles.gameCamera} ref={cameraRef}>
 			<div style={styles.mapGrid}>
+				{CLOUD_LOCATIONS.map(({ id, column, row }) => (
+					<Cloud key={id} column={column} row={row} />
+				))}
+
 				{COIN_LOCATIONS.map(({ id, column, row }) => (
 					<Coin
 						key={id}
@@ -86,6 +94,7 @@ export default function App() {
 				))}
 				{pipes}
 				{grounds}
+				<img src={Castle} alt='Castle' style={styles.castle} />
 
 				<Player
 					playerPosition={playerPosition}
@@ -153,5 +162,14 @@ const styles = {
 		fontFamily: "'Press Start 2P', sans-serif",
 		boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
 		transition: 'transform 0.2s ease',
+	} as React.CSSProperties,
+	castle: {
+		gridColumn: '92 / 101',
+		gridRow: '5 / 10',
+		backgroundSize: 'contain',
+		backgroundRepeat: 'no-repeat',
+		backgroundPosition: 'center',
+		width: '100%',
+		height: '100%',
 	} as React.CSSProperties,
 }
