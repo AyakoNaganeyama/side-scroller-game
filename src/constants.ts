@@ -71,6 +71,8 @@ export const GROUND_LOCATIONS: GroundLocationType[] = [
 	{ id: uuidv4(), column: '92 /  101' },
 ]
 
+export const WIN_LOCATION: { MIN: number; MAX: number } = { MIN: 92, MAX: 101 }
+
 export const GROUND_HOLD_LOCATION: { [Key: string]: boolean } = {
 	28: true,
 	29: true,
