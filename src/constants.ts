@@ -73,6 +73,13 @@ export const GROUND_LOCATIONS: GroundLocationType[] = [
 
 export const WIN_LOCATION: { MIN: number; MAX: number } = { MIN: 92, MAX: 101 }
 
+export const CLOUD_LOCATIONS = [
+	{ id: 1, column: '10 / span 2', row: '2 / span 1' },
+	{ id: 2, column: '25 / span 3', row: '3 / span 1' },
+	{ id: 3, column: '40 / span 2', row: '1 / span 1' },
+	{ id: 4, column: '60 / span 3', row: '2 / span 1' },
+]
+
 export const GROUND_HOLD_LOCATION: { [Key: string]: boolean } = {
 	28: true,
 	29: true,
