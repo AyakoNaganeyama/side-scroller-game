@@ -60,9 +60,18 @@ export default function App() {
 	}
 
 	return gameOver ? (
-		<div style={styles.winMessage}>
-			<h1>You Win!</h1>
-			<button onClick={() => window.location.reload()}>Play Again</button>
+		<div style={styles.parentContainer}>
+			<div style={styles.winMessage}>
+				<h1>You Win!</h1>
+				<button
+					onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+					onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+					onClick={() => window.location.reload()}
+					style={styles.button}
+				>
+					Play Again
+				</button>
+			</div>
 		</div>
 	) : (
 		<div style={styles.gameCamera} ref={cameraRef}>
@@ -107,16 +116,42 @@ const styles = {
 		gridTemplateRows: `repeat(${TOTAL_ROWS}, 1fr)`,
 		position: 'relative',
 	} as React.CSSProperties,
+	parentContainer: {
+		width: '100%',
+		height: '100vh',
+		backgroundColor: '#8085f9',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		position: 'relative',
+	} as React.CSSProperties,
 	winMessage: {
 		position: 'absolute',
 		top: '50%',
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
-		backgroundColor: 'rgba(0, 0, 0, 0.8)',
-		color: 'white',
-		padding: '20px',
-		borderRadius: '10px',
+		backgroundColor: '#57a0ff',
+		color: '#fff',
+		padding: '50px 70px',
+		border: '4px solid #ffcc00',
+		borderRadius: '15px',
+		boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
 		textAlign: 'center',
+		fontFamily: "'Press Start 2P', sans-serif",
+		fontSize: '22px',
 		zIndex: 1000,
+	} as React.CSSProperties,
+	button: {
+		marginTop: '20px',
+		padding: '15px 30px',
+		fontSize: '18px',
+		color: '#fff',
+		backgroundColor: '#a96604',
+		border: 'none',
+		borderRadius: '8px',
+		cursor: 'pointer',
+		fontFamily: "'Press Start 2P', sans-serif",
+		boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
+		transition: 'transform 0.2s ease',
 	} as React.CSSProperties,
 }
