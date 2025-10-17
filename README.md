@@ -1,71 +1,34 @@
-# Getting Started with Create React App
+# to-do-list-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+The primary objective is to develop a single-level side-scrolling game prototype inspired by classic Mario games using pure ReactJs and explore the feasibility of modern web technologies in game development. This project aims to demonstrate core game mechanics such as player movement, camera scrolling, coin collection and game over. <br />
 
-In the project directory, you can run:
+## Archtecture Diagram
 
-### `npm start`
+As seen below the game consists of three layers, the presentation layer, entity layer and logic controller layer that can be seen as the Input layer.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![alt text](./archtecture.jpg)<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Camera Scroll Diagram
 
-### `npm test`
+The camera scroll consists of three main components, the camera, the overflowing x-axis and the overflow itself.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![alt text](./camera.jpg)
 
-### `npm run build`
+## Output
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Player movement**:
+   position is updated then rendered to match the new position as seen in the gif above creating movement within the game. </br>The game is built on a CSS grid where we allocate a position on the grid for the player. When a player moves forward or back, we add 1 or take one away, to allow the player to move forward one grid cell or back one grid cell. </br>The player movement controller takes an event argument which checks what type of event occurred, in this case, we check for the left, right, and up arrow keys. These keys will be used for player movement. From here we set the player's position and return it to update the player object position as seen above in the code sample.
+   ![alt text](./player_movement.jpg)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Jumping mechanics**:
+   Here we have implemented a simple jump mechanic. When the user clicks the up-arrow key, the player is moved up 3 spaces then back down 3 spaces creating a jump action.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Coin collection**:
+   we check if the player has the same location as the coin. We do this by checking the player’s position against the coin locations which is stored in our constants file as COIN_COLLISION. If it returns true we remove the coin from the view by returning null.
 
-### `npm run eject`
+4. **Collision detection**:
+   Similar to coin collection, collision detection uses position mapping as well to check if there is a pipe ahead or behind the play. This will prevent the player from moving.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# side-scroller-game
+5. **Game over loss**:we are using the “useEffect” callback function to actively listen and check the player's position x.
