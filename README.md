@@ -18,11 +18,11 @@ The camera scroll consists of three main components, the camera, the overflowing
 
 ## Output
 
-1. **Player movement**:
-   position is updated then rendered to match the new position as seen in the gif above creating movement within the game. </br>The game is built on a CSS grid where we allocate a position on the grid for the player. When a player moves forward or back, we add 1 or take one away, to allow the player to move forward one grid cell or back one grid cell. </br>The player movement controller takes an event argument which checks what type of event occurred, in this case, we check for the left, right, and up arrow keys. These keys will be used for player movement. From here we set the player's position and return it to update the player object position as seen above in the code sample.
+1. **Player movement**: </br>
+   The game is built on a CSS grid where we allocate a position on the grid for the player. When a player moves forward or back, we add 1 or take one away, to allow the player to move forward one grid cell or back one grid cell. </br>The player movement controller takes an event argument which checks what type of event occurred, in this case, we check for the left, right, and up arrow keys. These keys will be used for player movement. From here we set the player's position and return it to update the player object position as seen below in the code sample.
    ![alt text](./player_movement.jpg)
 
-2. **Jumping mechanics**:
+2. **Jumping mechanics**:</br>
    Here we have implemented a simple jump mechanic. When the user clicks the up-arrow key, the player is moved up 3 spaces then back down 3 spaces creating a jump action.
 
 3. **Coin collection**:
