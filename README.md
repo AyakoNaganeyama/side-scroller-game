@@ -41,11 +41,11 @@ As seen below the game consists of three layers, the presentation layer, entity 
 
 ![alt text](./archtecture.jpg)<br />
 Presentation Layer:
-This layer manages the rendering of entities and elements within the game.
+This layer manages the rendering of entities and elements within the game.<br/>
 Entity:
-This layer manages objects within the game such as the player, coin, and pipe.
+This layer manages objects within the game such as the player, coin, and pipe.<br/>
 Logic controller layer:
-This layer handles the player inputs and game logic.
+This layer handles the player inputs and game logic.<br/>
 
 As seen in the diagram above, there is also a link between the presentation layer and the logic controller layer, this is due to the design of react and can not be removed as the presentation is tightly coupled with the controller layer by default. This being the case we did try our best to work around the limitations of react and resulted in the design pattern we have now.
 The game is developed using components for entities, hooks for game logic, and a CSS Grid for the layout.
