@@ -7,14 +7,12 @@ The primary objective is to develop a single-level side-scrolling game prototype
 ## Technologies
 
 CSS grid:​
-
 Game layout​
 
 ReactJs:​
-
 Manage Enity
 
-![alt text](image-1.png)
+![alt text](image-1.png) </br>
 Everything has a position, for example
 the the player is at column 1, row 8 and
 the first pipe location is column 7, row 8.​
@@ -59,9 +57,10 @@ The camera scroll consists of three main components, the camera, the overflowing
    Here we have implemented a simple jump mechanic. When the user clicks the up-arrow key, the player is moved up 3 spaces then back down 3 spaces creating a jump action.
 
 3. **Coin collection**:
-   we check if the player has the same location as the coin. We do this by checking the player’s position against the coin locations which is stored in our constants file as COIN_COLLISION. If it returns true we remove the coin from the view by returning null.
+   we check if the player has the same location as the coin. We do this by checking the player’s position against the coin locations which is stored in our constants file as COIN_COLLISION. If it returns true we remove the coin from the view by returning null.</br>
 
 4. **Collision detection**:
-   Similar to coin collection, collision detection uses position mapping as well to check if there is a pipe ahead or behind the play. This will prevent the player from moving.
+   Similar to coin collection, collision detection uses position mapping as well to check if there is a pipe ahead or behind the play. This will prevent the player from moving.</br>
+   ![alt text](image-2.png)
 
 5. **Game over loss**:we are using the “useEffect” callback function to actively listen and check the player's position x.
