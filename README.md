@@ -131,6 +131,7 @@ If it matches a hole’s row, the game resets by reloading the page.
 The game ends with a **win** when the player reaches the castle at the end of the level.
 
 ![Win Logic](image-10.png)
+![Win](image-12.png)
 
 A `useEffect` listener monitors the player’s `x` position.
 When it falls within the castle’s range, the game toggles a win state and displays a success prompt.
