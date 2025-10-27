@@ -1,4 +1,4 @@
-# to-do-list-app
+# Side Scrolling Game Prototype
 
 ## About
 
