@@ -4,6 +4,39 @@
 
 The primary objective is to develop a single-level side-scrolling game prototype inspired by classic Mario games using pure ReactJs and explore the feasibility of modern web technologies in game development. This project aims to demonstrate core game mechanics such as player movement, camera scrolling, coin collection and game over. <br />
 
+## Technologies
+
+CSS grid:​
+
+Game layout​
+
+ReactJs:​
+
+Manage Enity
+
+![alt text](image-1.png)
+Everything has a position, for example
+the the player is at column 1, row 8 and
+the first pipe location is column 7, row 8.​
+
+</br>
+
+## Key Featurs
+
+-Player movement, jump and fall<br />
+
+-Camera scroll​<br />
+
+-Collision detection ​<br />
+
+-Coin collision​<br />
+
+-Game over<br /><br />
+
+## Entities
+
+![alt text](entity.jpg)<br/>
+
 ## Archtecture Diagram
 
 As seen below the game consists of three layers, the presentation layer, entity layer and logic controller layer that can be seen as the Input layer.
