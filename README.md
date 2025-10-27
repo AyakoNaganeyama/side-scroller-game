@@ -76,7 +76,6 @@ Each movement forward or backward adds or subtracts one grid cell.
 When a keypress event occurs, we check for left, right, or up arrow keys and update the player’s grid position accordingly.
 
 ![Player Movement Code](./player_movement.jpg)
-![Player Movement](image-4.png)
 
 ---
 
