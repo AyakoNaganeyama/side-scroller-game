@@ -16,7 +16,7 @@ Used to build the overall game layout.
 **React.js**
 Manages entities and game state logic.
 
-![Game Layout](image-1.png)
+![Game Layout](./src/images/readme/image-1.png)
 
 Everything has a defined position — for example, the player starts at column 1, row 8, and the first pipe is located at column 7, row 8.
 
@@ -34,7 +34,7 @@ Everything has a defined position — for example, the player starts at column 1
 
 ## 🧍 Entities
 
-![Entities](entity.jpg)
+![Entities](./src/images/readme/entity.jpg)
 
 ---
 
@@ -46,7 +46,7 @@ As shown below, the game is structured into **three main layers**:
 2. **Entity Layer** – Manages game objects such as the player, coins, and pipes.
 3. **Logic Controller Layer** – Handles player inputs and game logic.
 
-![Architecture](./archtecture.jpg)
+![Architecture](./src/images/readme/archtecture.jpg)
 
 > React’s design inherently couples the presentation and controller layers. While we aimed to separate them conceptually, some coupling remains due to React’s rendering model.
 
@@ -58,7 +58,7 @@ The game is developed using **React components** for entities, **custom hooks** 
 
 The camera scroll consists of three main components: the **camera**, the **overflowing x-axis**, and the **overflow** itself.
 
-![Camera Scroll](./camera.jpg)
+![Camera Scroll](./src/images/readme/camera.jpg)
 
 - **Camera:** The visible viewport where the player interacts with the game world.
 - **Game Map:** The complete world grid containing all entities and terrain.
@@ -75,7 +75,7 @@ Each movement forward or backward adds or subtracts one grid cell.
 
 When a keypress event occurs, we check for left, right, or up arrow keys and update the player’s grid position accordingly.
 
-![Player Movement Code](./player_movement.jpg)
+![Player Movement Code](./src/images/readme/player_movement.jpg)
 
 ---
 
@@ -85,7 +85,7 @@ A simple jump is implemented by moving the player **up 3 spaces**, then **back d
 
 When the **up-arrow key** is pressed and the player isn’t already jumping, the player’s `y` position decreases (moves up) and then returns to the original value.
 
-![Jumping Code](image-3.png)
+![Jumping Code](./src/images/readme/image-3.png)
 
 ---
 
@@ -94,8 +94,8 @@ When the **up-arrow key** is pressed and the player isn’t already jumping, the
 The game checks if the player’s position matches any coin coordinates stored in the constants file (`COIN_COLLISION`).
 When a collision is detected, the coin is removed from the view.
 
-![Coin Logic](image-5.png)
-![Coin Collected](image-6.png)
+![Coin Logic](./src/images/readme/image-5.png)
+![Coin Collected](./src/images/readme/image-6.png)
 
 ---
 
@@ -107,8 +107,8 @@ It uses the same position mapping technique as coin collection.
 When moving, the function `checkTouchingPipe()` checks the player’s position against the constant `PIPE_COLLISION`.
 If true, the player’s movement is cancelled.
 
-![Collision Detection Code](image-2.png)
-![Pipe Collision](image-7.png)
+![Collision Detection Code](./src/images/readme/image-2.png)
+![Pipe Collision](./src/images/readme/image-7.png)
 
 ---
 
@@ -117,12 +117,12 @@ If true, the player’s movement is cancelled.
 The game ends if the player falls into a hole.
 While moving, the system checks if the player is above a hole location. If so, the **fall** function is triggered.
 
-![Falling Logic](image-8.png)
+![Falling Logic](./src/images/readme/image-8.png)
 
 A `useEffect` listener monitors the player’s `y` position.
 If it matches a hole’s row, the game resets by reloading the page.
 
-![Game Over Loss](image-9.png)
+![Game Over Loss](./src/images/readme/image-9.png)
 
 ---
 
@@ -130,13 +130,13 @@ If it matches a hole’s row, the game resets by reloading the page.
 
 The game ends with a **win** when the player reaches the castle at the end of the level.
 
-![Win Logic](image-10.png)
-![Win](image-12.png)
+![Win Logic](./src/images/readme/image-10.png)
+![Win](./src/images/readme/image-12.png)
 
 A `useEffect` listener monitors the player’s `x` position.
 When it falls within the castle’s range, the game toggles a win state and displays a success prompt.
 
-![Game Over Win](image-11.png)
+![Game Over Win](./src/images/readme/image-11.png)
 
 ---
 
