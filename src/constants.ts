@@ -65,10 +65,10 @@ export const COIN_LOCATIONS: CoinLocationType[] = [
  * Coin locations are used for visual placements of coin sprites no used for collision
  */
 export const GROUND_LOCATIONS: GroundLocationType[] = [
-	{ id: uuidv4(), column: '1 /  29' },
-	{ id: uuidv4(), column: '35 / 56' },
-	{ id: uuidv4(), column: '62 /  86' },
-	{ id: uuidv4(), column: '92 /  101' },
+	{ id: uuidv4(), column: '1 /  34' },   // ground 1–33
+	{ id: uuidv4(), column: '35 / 60' },
+	{ id: uuidv4(), column: '61 / 101' },
+
 ]
 
 export const WIN_LOCATION: { MIN: number; MAX: number } = { MIN: 92, MAX: 101 }
@@ -81,24 +81,14 @@ export const CLOUD_LOCATIONS = [
 ]
 
 export const GROUND_HOLD_LOCATION: { [Key: string]: boolean } = {
-	28: true,
-	29: true,
-	30: true,
-	31: true,
-	32: true,
+
+
+	// Hole 1 (2 columns)
+
 	33: true,
-	55: true,
-	56: true,
-	57: true,
-	58: true,
-	59: true,
-	60: true,
-	85: true,
-	86: true,
-	87: true,
-	88: true,
-	89: true,
-	90: true,
+	60:true,
+
+
 }
 
 /**
@@ -108,7 +98,7 @@ export const PIPE_LOCATIONS: PipeLocationType[] = [
 	{ id: uuidv4(), column: '8' },
 	{ id: uuidv4(), column: '15' },
 	{ id: uuidv4(), column: '21' },
-	{ id: uuidv4(), column: '35' },
+
 	{ id: uuidv4(), column: '46' },
 	{ id: uuidv4(), column: '52' },
 	{ id: uuidv4(), column: '64' },
