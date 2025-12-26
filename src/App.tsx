@@ -26,6 +26,7 @@ import { Cloud } from "./components/Cloud";
 export default function App() {
   const [gameOver, setGameOver] = useState<boolean>(false);
   //comment added
+  //second comments added
 
   // target player and camera as soon as app mounts to screen
   // used for tracking the player movement and to help keep scroll and camera inline with the player
